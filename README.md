@@ -47,10 +47,10 @@ A modern, minimal, and feature-rich To-Do list application built with **React**,
 ## 🖼️ Screenshots
 
 ### Light Mode
-![Light Mode](https://via.placeholder.com/800x450.png?text=TaskMaster+Light+Mode) *Add your screenshot here*
+![Light Mode](./assets/light-mode.png)
 
 ### Dark Mode
-![Dark Mode](https://via.placeholder.com/800x450.png?text=TaskMaster+Dark+Mode) *Add your screenshot here*
+![Dark Mode](./assets/dark-mode.png)
 
 ---
 Code by [Pruthivi13](https://github.com/Pruthivi13)
