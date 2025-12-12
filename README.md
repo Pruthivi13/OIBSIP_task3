@@ -1,56 +1,16 @@
-# TaskMaster - Minimal React To-Do App
+# React + Vite
 
-A modern, minimal, and feature-rich To-Do list application built with **React**, **Vite**, and **Tailwind CSS**. Designed for focus and efficiency with a beautiful clean UI.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## ✨ Features
+Currently, two official plugins are available:
 
-### 🎨 Minimal & Modern UI
-- **Glassmorphism Design**: Sleek animated mesh gradients and soft shadows.
-- **Dark Mode Support**: Fully responsive dark/light styling that auto-adapts to your preference.
-- **Responsive Layout**: Works seamlessly on desktop and mobile.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### 🚀 Smart Task Management
-- **Categorization**: Organize tasks into **Personal** 👤, **Work** 💼, and **Urgent** 🔥.
-- **Visual Tags**: Color-coded pills for quick scanning of task types.
-- **Sorting & Filtering**:
-  - Filter tasks by category.
-  - Sort by **Newest**, **Oldest**, or **A-Z**.
-- **Search**: Instant real-time filtering of tasks by name.
+## React Compiler
 
-### 🛠️ Technical Highlights
-- **Tech Stack**: React 18, Vite, Tailwind CSS.
-- **Persistence**: Tasks are saved strictly to `localStorage` (no backend required).
-- **Custom Components**:
-  - Pixel-perfect custom dropdowns.
-  - Integrated Gmail composition button.
-  - Interactive SVG icons.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 📦 Installation
+## Expanding the ESLint configuration
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Pruthivi13/OIBSIP_task3.git
-   ```
-2. Navigate to the project folder:
-   ```bash
-   cd OIBSIP_task3/todo-react
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Start the dev server:
-   ```bash
-   npm run dev
-   ```
-
-## 🖼️ Screenshots
-
-### Light Mode
-![Light Mode](./assets/light-mode.png)
-
-### Dark Mode
-![Dark Mode](./assets/dark-mode.png)
-
----
-Code by [Pruthivi13](https://github.com/Pruthivi13)
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
