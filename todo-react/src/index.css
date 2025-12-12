@@ -1,0 +1,649 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Manrope:wght@200..800&display=swap');
+
+:root {
+  --font-primary: "DM Sans", sans-serif;
+}
+
+*, *::before, *::after, html, body, input, textarea, button, select {
+  font-family: var(--font-primary) !important;
+}
+
+/* Dark mode (default) - Deep purple/blue mesh gradient */
+body {
+  @apply min-h-screen m-0;
+  background: 
+    radial-gradient(ellipse at 0% 0%, rgba(124, 58, 237, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(6, 182, 212, 0.4) 0%, transparent 50%),
+    linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+  background-size: 200% 200%;
+  animation: meshGradientDark 15s ease infinite;
+  transition: all 0.5s ease;
+}
+
+/* Light mode - Vibrant sunset/ocean mesh gradient */
+html.light-mode body {
+  background: 
+    radial-gradient(ellipse at 0% 0%, rgba(251, 191, 36, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(14, 165, 233, 0.4) 0%, transparent 50%),
+    linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #e0f2fe 100%);
+  background-size: 200% 200%;
+  animation: meshGradientLight 15s ease infinite;
+}
+
+.app-wrapper {
+  @apply min-h-screen w-full flex flex-col items-center relative;
+  padding-top: 70px;
+  padding-bottom: 100px;
+}
+
+/* Heading text colors */
+.heading-text {
+  @apply text-gray-100;
+}
+
+html.light-mode .heading-text {
+  @apply text-gray-800;
+}
+
+/* Container */
+.container {
+  @apply bg-gray-800/90 p-4 md:p-8 rounded-2xl shadow-2xl text-center flex flex-col mx-4;
+  width: calc(100% - 2rem);
+  max-width: 400px;
+  animation: fadeIn 1s ease;
+  transition: background-color 0.3s ease;
+}
+
+html.light-mode .container {
+  @apply bg-white/90;
+}
+
+/* Task items */
+.task-item {
+  @apply bg-gray-600 flex flex-col items-start p-4 mb-3 relative rounded-lg shadow-md transition-all duration-300;
+  animation: slideIn 0.3s ease;
+}
+
+html.light-mode .task-item {
+  @apply bg-gray-200;
+}
+
+.task-item:hover {
+  @apply bg-gray-500;
+}
+
+html.light-mode .task-item:hover {
+  @apply bg-gray-300;
+}
+
+.task-item.completed h2,
+.task-item.completed p {
+  @apply line-through text-gray-400;
+}
+
+.task-item.deleting {
+  animation: slideOut 0.3s ease forwards;
+}
+
+/* Task item text */
+.task-item h2 {
+  @apply text-gray-100;
+}
+
+html.light-mode .task-item h2 {
+  @apply text-gray-800;
+}
+
+.task-item p {
+  @apply text-gray-400;
+}
+
+html.light-mode .task-item p {
+  @apply text-gray-600;
+}
+
+/* Footer - matches page background */
+.footer-bg {
+  @apply bg-gray-800/80;
+  backdrop-filter: blur(10px);
+}
+
+html.light-mode .footer-bg {
+  @apply bg-white/80;
+}
+
+.footer-text {
+  @apply text-gray-300;
+}
+
+html.light-mode .footer-text {
+  @apply text-gray-700;
+}
+
+/* Social icons base */
+.social-icon {
+  @apply text-gray-400 transition-all duration-300 transform;
+}
+
+html.light-mode .social-icon {
+  @apply text-gray-600;
+}
+
+.social-icon:hover {
+  @apply scale-125;
+}
+
+/* Instagram - gradient hover */
+.instagram-icon:hover {
+  color: #E1306C;
+  filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
+}
+
+/* X (Twitter) - black hover */
+.x-icon:hover {
+  @apply text-gray-900;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
+}
+
+html.light-mode .x-icon:hover {
+  @apply text-black;
+}
+
+/* GitHub - purple hover */
+.github-icon:hover {
+  color: #6e5494;
+  filter: drop-shadow(0 0 8px rgba(110, 84, 148, 0.6));
+}
+
+/* Header styles */
+.header-bg {
+  @apply bg-gray-900/60;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html.light-mode .header-bg {
+  @apply bg-white/60;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+  background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+html.light-mode .header-title {
+  background: linear-gradient(135deg, #059669, #0891b2, #7c3aed);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Nav link styles */
+.nav-link {
+  @apply text-gray-300;
+}
+
+.nav-link:hover {
+  @apply text-white;
+}
+
+html.light-mode .nav-link {
+  @apply text-gray-700;
+}
+
+html.light-mode .nav-link:hover {
+  @apply text-gray-900;
+}
+
+/* Contact button */
+.contact-btn {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  @apply text-white shadow-md;
+}
+
+.contact-btn:hover {
+  background: linear-gradient(135deg, #059669, #10b981);
+}
+
+html.light-mode .contact-btn {
+  background: linear-gradient(135deg, #059669, #10b981);
+}
+
+/* Mesh gradient keyframes - Dark mode */
+@keyframes meshGradientDark {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+}
+
+/* Mesh gradient keyframes - Light mode */
+@keyframes meshGradientLight {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Input styling */
+.task-input {
+  @apply bg-gray-600 border-gray-500 text-gray-100;
+}
+
+.task-input::placeholder {
+  @apply text-gray-400;
+}
+
+html.light-mode .task-input {
+  @apply bg-gray-100 border-gray-300 text-gray-800;
+}
+
+html.light-mode .task-input::placeholder {
+  @apply text-gray-500;
+}
+/* ============================================
+   MINIMAL UI STYLES
+   ============================================ */
+
+/* Minimal Container */
+.minimal-container {
+  background: #f5f5f5;
+  border-radius: 20px;
+  padding: 1.5rem 2rem;
+  width: calc(100% - 2rem);
+  max-width: 420px;
+  min-height: 70vh;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease;
+  transition: all 0.3s ease;
+  margin: auto;
+}
+
+html.light-mode .minimal-container {
+  background: #ffffff;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode container */
+html:not(.light-mode) .minimal-container {
+  background: #1e1e2e;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* App Title */
+.app-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-style: italic;
+  text-align: center;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+  transition: color 0.3s ease;
+}
+
+html:not(.light-mode) .app-title {
+  color: #f0f0f0;
+}
+
+/* Section Label */
+.section-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+html:not(.light-mode) .section-label {
+  color: #888;
+}
+
+.section {
+  margin-bottom: 1rem;
+}
+
+/* Minimal Input */
+.minimal-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+  font-size: 0.875rem;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.minimal-input:focus {
+  outline: none;
+  border-color: #999;
+  background: #fff;
+}
+
+.minimal-input::placeholder {
+  color: #999;
+}
+
+/* Dark mode inputs */
+html:not(.light-mode) .minimal-input {
+  background: #2a2a3e;
+  border-color: #3a3a4e;
+  color: #e0e0e0;
+}
+
+html:not(.light-mode) .minimal-input:focus {
+  border-color: #5a5a6e;
+  background: #333348;
+}
+
+html:not(.light-mode) .minimal-input::placeholder {
+  color: #666;
+}
+
+/* Task List Container */
+.task-list-container {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0.5rem 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.empty-icon {
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+html:not(.light-mode) .empty-icon {
+  color: #444;
+}
+
+/* Empty Message */
+.empty-message {
+  text-align: center;
+  color: #999;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+html:not(.light-mode) .empty-message {
+  color: #666;
+}
+
+/* Task Row */
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.task-row:hover {
+  background: #fafafa;
+  border-color: #ddd;
+}
+
+/* Dark mode task rows */
+html:not(.light-mode) .task-row {
+  background: #2a2a3e;
+  border-color: #3a3a4e;
+}
+
+html:not(.light-mode) .task-row:hover {
+  background: #333348;
+  border-color: #4a4a5e;
+}
+
+.task-row.completed .task-text {
+  text-decoration: line-through;
+  color: #999;
+}
+
+html:not(.light-mode) .task-row.completed .task-text {
+  color: #555;
+}
+
+.task-text {
+  font-size: 0.9rem;
+  color: #333;
+  flex: 1;
+  transition: color 0.2s ease;
+}
+
+html:not(.light-mode) .task-text {
+  color: #e0e0e0;
+}
+
+/* Delete Button */
+.delete-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  color: #e53e3e;
+}
+
+html:not(.light-mode) .delete-btn {
+  color: #555;
+}
+
+html:not(.light-mode) .delete-btn:hover {
+  color: #f56565;
+}
+
+/* Category Tags */
+.category-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+  align-self: flex-start;
+}
+
+.category-tag.personal {
+  background: #e0f2fe; /* Light Blue */
+  color: #0284c7;
+}
+
+.category-tag.work {
+  background: #f3e8ff; /* Light Purple */
+  color: #9333ea;
+}
+
+.category-tag.urgent {
+  background: #fee2e2; /* Light Red */
+  color: #dc2626;
+}
+
+/* Dark mode category tags */
+html:not(.light-mode) .category-tag.personal {
+  background: rgba(2, 132, 199, 0.2);
+  color: #38bdf8;
+}
+
+html:not(.light-mode) .category-tag.work {
+  background: rgba(147, 51, 234, 0.2);
+  color: #c084fc;
+}
+
+html:not(.light-mode) .category-tag.urgent {
+  background: rgba(220, 38, 38, 0.2);
+  color: #f87171;
+}
+
+/* Control Pills (Filter/Sort) */
+.control-pill {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  appearance: none; /* Remove default select arrow */
+  text-align: center;
+}
+
+.control-pill:hover, .control-pill:focus {
+  border-color: #ccc;
+  background: #fafafa;
+  color: #333;
+}
+
+.sort-btn {
+  min-width: 60px;
+}
+
+/* Dark mode controls */
+html:not(.light-mode) .control-pill {
+  background: #2a2a3e;
+  border-color: #3a3a4e;
+  color: #aaa;
+}
+
+html:not(.light-mode) .control-pill:hover {
+  background: #333348;
+  color: #e0e0e0;
+}
+
+/* Custom Select with SVG Arrow */
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat !important;
+  background-position: calc(100% - 12px) center !important;
+  background-size: 1rem;
+  padding-right: 2.5rem !important; /* Make room for arrow */
+}
+
+html:not(.light-mode) .custom-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar Styling */
+.task-list-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.task-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.task-list-container::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.task-list-container::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
