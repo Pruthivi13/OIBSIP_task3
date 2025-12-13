@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&display=swap');
 
 :root {
-  --font-primary: "DM Sans", sans-serif;
+  --font-primary: "Google Sans Flex", "DM Sans", sans-serif;
+  --font-display: "Google Sans", "Google Sans Flex", sans-serif;
 }
 
 *, *::before, *::after, html, body, input, textarea, button, select {
@@ -163,28 +164,42 @@ html.light-mode .x-icon:hover {
 
 /* Header styles */
 .header-bg {
-  @apply bg-gray-900/60;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 html.light-mode .header-bg {
-  @apply bg-white/60;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 }
 
 .header-title {
-  background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6);
+  background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6, #10b981);
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  animation: shimmer 4s ease infinite;
 }
 
 html.light-mode .header-title {
-  background: linear-gradient(135deg, #059669, #0891b2, #7c3aed);
+  background: linear-gradient(135deg, #059669, #0891b2, #7c3aed, #059669);
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  animation: shimmer 4s ease infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 /* Nav link styles */
@@ -337,18 +352,25 @@ html:not(.light-mode) .minimal-container {
 
 /* App Title */
 .app-title {
-  font-size: 1.75rem;
-  font-weight: 800;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
   text-align: center;
-  color: #1a1a1a;
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
   margin-bottom: 1.5rem;
-  letter-spacing: 0.1em;
-  transition: color 0.3s ease;
+  letter-spacing: 0.15em;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
 }
 
 html:not(.light-mode) .app-title {
-  color: #f0f0f0;
+  background: linear-gradient(135deg, #a78bfa, #22d3ee, #34d399);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 /* Section Label */
@@ -525,6 +547,100 @@ html:not(.light-mode) .delete-btn:hover {
   color: #f56565;
 }
 
+/* Add Button */
+.add-btn {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.add-btn:hover {
+  background: linear-gradient(135deg, #059669, #10b981);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.add-btn:active {
+  transform: scale(0.98);
+}
+
+html:not(.light-mode) .add-btn {
+  background: linear-gradient(135deg, #34d399, #10b981);
+}
+
+html:not(.light-mode) .add-btn:hover {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+/* Edit Buttons */
+.edit-btn {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.edit-btn:hover {
+  color: #3b82f6;
+}
+
+.edit-btn.save {
+  color: #10b981;
+}
+
+.edit-btn.save:hover {
+  color: #059669;
+}
+
+.edit-btn.cancel {
+  color: #ef4444;
+}
+
+.edit-btn.cancel:hover {
+  color: #dc2626;
+}
+
+html:not(.light-mode) .edit-btn {
+  color: #666;
+}
+
+html:not(.light-mode) .edit-btn:hover {
+  color: #60a5fa;
+}
+
+html:not(.light-mode) .edit-btn.save {
+  color: #34d399;
+}
+
+html:not(.light-mode) .edit-btn.save:hover {
+  color: #10b981;
+}
+
+html:not(.light-mode) .edit-btn.cancel {
+  color: #f87171;
+}
+
+html:not(.light-mode) .edit-btn.cancel:hover {
+  color: #ef4444;
+}
+
 /* Category Tags */
 .category-tag {
   display: inline-block;
@@ -647,3 +763,117 @@ html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb {
 html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* ============================================
+   MOBILE-FIRST RESPONSIVE ENHANCEMENTS
+   ============================================ */
+
+/* Mobile: Minimum touch target sizes (44x44px) */
+@media (max-width: 640px) {
+  .minimal-container {
+    padding: 1.25rem 1.5rem;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .app-title {
+    font-size: 2rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+
+  /* Larger touch targets for mobile */
+  .minimal-input {
+    padding: 0.875rem 1rem;
+    font-size: 16px; /* Prevent iOS zoom on focus */
+    min-height: 44px;
+  }
+
+  .task-row {
+    padding: 1rem 1rem;
+    min-height: 60px;
+  }
+
+  .task-text {
+    font-size: 1rem;
+  }
+
+  .delete-btn {
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .control-pill {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    min-height: 44px;
+  }
+
+  /* Stack controls vertically on very small screens */
+  .flex.gap-2.items-center.justify-center {
+    flex-wrap: wrap;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+  }
+
+  .category-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
+/* Tablet: 640px - 1024px */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .minimal-container {
+    max-width: 500px;
+  }
+
+  .app-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* Desktop: > 1024px */
+@media (min-width: 1024px) {
+  .minimal-container {
+    max-width: 480px;
+  }
+
+  .task-row:hover {
+    transform: translateX(2px);
+  }
+}
+
+/* Improve button hover states on touch devices */
+@media (hover: none) {
+  .task-row:hover {
+    background: inherit;
+    border-color: inherit;
+  }
+
+  .task-row:active {
+    background: #fafafa;
+    border-color: #ddd;
+  }
+
+  html:not(.light-mode) .task-row:active {
+    background: #333348;
+    border-color: #4a4a5e;
+  }
+
+  .delete-btn:hover {
+    color: inherit;
+  }
+
+  .delete-btn:active {
+    color: #e53e3e;
+  }
+
+  html:not(.light-mode) .delete-btn:active {
+    color: #f56565;
+  }
+}
+

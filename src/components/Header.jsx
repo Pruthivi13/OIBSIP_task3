@@ -8,15 +8,23 @@ function Header() {
       {/* Mobile: Stack layout, Desktop: Row layout */}
       <div className="flex items-center justify-between">
         {/* Left - Logo & App Name */}
-        <div className="flex items-center gap-2 md:gap-3">
-          <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-lg p-1.5 md:p-2">
+        <div className="flex items-center gap-3 md:gap-4">
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl overflow-hidden flex items-center justify-center shadow-xl"
+            style={{
+              boxShadow: '0 0 20px rgba(139, 92, 246, 0.4), 0 4px 15px rgba(0, 0, 0, 0.2)'
+            }}
+          >
             <img 
-              src="/OnlineWebFonts_COM_Icons_11cb5d4455d28356663fa525a32aa316/To_Do_List.svg" 
+              src="/taskmaster_logo.png" 
               alt="TaskMaster Logo"
-              className="w-full h-full invert"
+              className="w-full h-full object-cover"
             />
           </div>
-          <h1 className="header-title text-lg md:text-xl font-bold tracking-wide">
+          <h1 className="header-title text-xl md:text-2xl font-bold tracking-wide"
+            style={{
+              textShadow: '0 2px 10px rgba(16, 185, 129, 0.3)'
+            }}
+          >
             TaskMaster
           </h1>
         </div>
@@ -33,27 +41,31 @@ function Header() {
             About
           </a>
 
-          {/* Theme Toggle */}
+          {/* Modern Theme Toggle Switch */}
           <button
             onClick={toggleTheme}
-            className="w-10 h-5 md:w-12 md:h-6 rounded-full transition-all duration-300 flex items-center p-0.5 md:p-1 cursor-pointer border-none shadow-md flex-shrink-0"
+            className="relative w-14 h-7 md:w-16 md:h-8 rounded-full transition-all duration-300 flex items-center p-1 cursor-pointer border-none shadow-lg flex-shrink-0"
             style={{
               background: isDark 
-                ? 'linear-gradient(135deg, #374151, #1f2937)' 
-                : 'linear-gradient(135deg, #60a5fa, #3b82f6)',
+                ? 'linear-gradient(135deg, #1e293b, #0f172a)' 
+                : 'linear-gradient(135deg, #fbbf24, #f59e0b)',
             }}
             aria-label="Toggle theme"
           >
             <div
-              className={`w-4 h-4 md:w-4 md:h-4 rounded-full transition-all duration-300 flex items-center justify-center text-[8px] md:text-[10px] ${
-                isDark ? 'translate-x-0 bg-gray-700' : 'translate-x-5 md:translate-x-6 bg-yellow-300'
+              className={`absolute w-5 h-5 md:w-6 md:h-6 rounded-full transition-all duration-300 flex items-center justify-center shadow-md ${
+                isDark ? 'left-1 bg-slate-700' : 'right-1 bg-white'
               }`}
+              style={{
+                transform: isDark ? 'rotate(0deg)' : 'rotate(360deg)',
+              }}
             >
-              {isDark ? '🌙' : '☀️'}
+              <span className="text-xs md:text-sm">
+                {isDark ? '🌙' : '☀️'}
+              </span>
             </div>
           </button>
 
-          {/* Contact Button */}
           {/* Contact Button */}
           <a
             href="https://mail.google.com/mail/?view=cm&fs=1&to=mail.to.pruthivi@gmail.com"

@@ -39,6 +39,8 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('All');
   const [sortBy, setSortBy] = useState('Newest'); // 'Newest', 'Oldest', 'A-Z'
+  const [editingId, setEditingId] = useState(null);
+  const [editText, setEditText] = useState('');
 
   // Save to localStorage whenever tasks change
   useEffect(() => {
@@ -71,11 +73,36 @@ function App() {
   };
 
   const toggleComplete = (id) => {
+    if (editingId === id) return; // Don't toggle while editing
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
+  };
+
+  const startEdit = (id, currentTitle) => {
+    setEditingId(id);
+    setEditText(currentTitle);
+  };
+
+  const saveEdit = () => {
+    if (editText.trim() === '') {
+      alert('Task cannot be empty');
+      return;
+    }
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === editingId ? { ...task, title: editText.trim() } : task
+      )
+    );
+    setEditingId(null);
+    setEditText('');
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditText('');
   };
 
   // Filter & Sort Logic
@@ -101,7 +128,7 @@ function App() {
         <div className="minimal-container">
           {/* Header Section with Sort/Filter */}
           <div className="flex flex-col items-center mb-6">
-            <h1 className="app-title mb-2">TO DO</h1>
+            <h1 className="app-title mb-2">MY TO DO LIST</h1>
             
             {/* Controls Bar */}
             <div className="flex gap-2 items-center justify-center w-full">
@@ -165,23 +192,76 @@ function App() {
                   key={task.id}
                   className={`task-row ${task.completed ? 'completed' : ''}`}
                 >
-                  <div className="flex flex-col flex-1 gap-1 min-w-0" onClick={() => toggleComplete(task.id)}>
-                    <span className="task-text truncate">{task.title}</span>
-                    <span className={`category-tag ${task.category.toLowerCase()}`}>
-                      {CATEGORY_ICONS[task.category]} {task.category}
-                    </span>
-                  </div>
-                  
-                  <button
-                    onClick={(e) => { e.stopPropagation(); deleteTask(task.id); }}
-                    className="delete-btn ml-2"
-                    aria-label="Delete task"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                  </button>
+                  {editingId === task.id ? (
+                    // Edit Mode
+                    <>
+                      <input
+                        type="text"
+                        value={editText}
+                        onChange={(e) => setEditText(e.target.value)}
+                        className="minimal-input flex-1"
+                        autoFocus
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') saveEdit();
+                          if (e.key === 'Escape') cancelEdit();
+                        }}
+                      />
+                      <div className="flex gap-2 ml-2">
+                        <button
+                          onClick={saveEdit}
+                          className="edit-btn save"
+                          aria-label="Save"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </button>
+                        <button
+                          onClick={cancelEdit}
+                          className="edit-btn cancel"
+                          aria-label="Cancel"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    // View Mode
+                    <>
+                      <div className="flex flex-col flex-1 gap-1 min-w-0" onClick={() => toggleComplete(task.id)}>
+                        <span className="task-text truncate">{task.title}</span>
+                        <span className={`category-tag ${task.category.toLowerCase()}`}>
+                          {CATEGORY_ICONS[task.category]} {task.category}
+                        </span>
+                      </div>
+                      
+                      <div className="flex gap-2 ml-2">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); startEdit(task.id, task.title); }}
+                          className="edit-btn"
+                          aria-label="Edit task"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                          </svg>
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); deleteTask(task.id); }}
+                          className="delete-btn"
+                          aria-label="Delete task"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               ))
             )}
@@ -210,9 +290,13 @@ function App() {
                 placeholder="Add new todo..."
                 className="minimal-input flex-1"
               />
+              <button type="submit" className="add-btn" aria-label="Add task">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
             </div>
-            {/* Mobile Submit Button (Optional, but good for UX) */}
-            <button type="submit" className="hidden">Add</button> 
           </form>
         </div>
         
