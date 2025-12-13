@@ -824,18 +824,26 @@ html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb:hover {
     padding: 0.2rem 0.6rem;
   }
 
-  /* Smaller category selector on mobile */
-  .custom-select {
-    min-width: 120px;
-    max-width: 130px;
-    font-size: 0.85rem;
-    padding-left: 0.5rem !important;
-    padding-right: 2rem !important;
+  /* Stack add form vertically on mobile */
+  .section.mt-auto .flex.gap-2 {
+    flex-wrap: wrap;
   }
 
-  /* Adjust input to give category more room */
-  .minimal-input.flex-1 {
+  .custom-select {
+    flex: 1 1 auto;
     min-width: 0;
+    max-width: none;
+    font-size: 0.9rem;
+  }
+
+  /* Adjust input to take remaining space */
+  .minimal-input.flex-1 {
+    flex: 2 1 150px;
+    min-width: 0;
+  }
+
+  .add-btn {
+    flex-shrink: 0;
   }
 }
 
