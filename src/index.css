@@ -823,6 +823,20 @@ html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb:hover {
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
   }
+
+  /* Smaller category selector on mobile */
+  .custom-select {
+    min-width: 120px;
+    max-width: 130px;
+    font-size: 0.85rem;
+    padding-left: 0.5rem !important;
+    padding-right: 2rem !important;
+  }
+
+  /* Adjust input to give category more room */
+  .minimal-input.flex-1 {
+    min-width: 0;
+  }
 }
 
 /* Tablet: 640px - 1024px */

@@ -287,7 +287,7 @@ function App() {
                 type="text"
                 value={newTask}
                 onChange={(e) => setNewTask(e.target.value)}
-                placeholder="Add new todo..."
+                placeholder="New task..."
                 className="minimal-input flex-1"
               />
               <button type="submit" className="add-btn" aria-label="Add task">
