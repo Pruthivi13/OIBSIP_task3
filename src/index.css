@@ -841,10 +841,6 @@ html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb:hover {
   .minimal-container {
     max-width: 480px;
   }
-
-  .task-row:hover {
-    transform: translateX(2px);
-  }
 }
 
 /* Improve button hover states on touch devices */
