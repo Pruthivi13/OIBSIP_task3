@@ -26,20 +26,7 @@ function Header({ isNotificationEnabled, onToggleNotifications, notificationSupp
           </div>
           
           {/* App Name - Styled Text */}
-          <h1 
-            className="text-xl md:text-2xl font-bold tracking-wide lowercase"
-            style={{
-              background: isDark 
-                ? 'linear-gradient(135deg, #c4b5fd, #a78bfa, #8b5cf6)' 
-                : 'linear-gradient(135deg, #7c3aed, #8b5cf6, #6d28d9)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              color: 'transparent',
-              fontFamily: '"Comfortaa", sans-serif',
-              letterSpacing: '0.05em'
-            }}
-          >
+          <h1 className="header-app-title text-xl md:text-2xl font-bold tracking-wide lowercase">
             task master
           </h1>
         </div>

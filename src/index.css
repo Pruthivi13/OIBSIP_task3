@@ -207,6 +207,25 @@ html.light-mode .header-title {
   50% { background-position: 100% 50%; }
 }
 
+/* Header App Title - Gradient Text */
+.header-app-title {
+  background: linear-gradient(135deg, #c4b5fd, #a78bfa, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-family: "Comfortaa", sans-serif;
+  letter-spacing: 0.05em;
+}
+
+html.light-mode .header-app-title {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6, #6d28d9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 /* Nav link styles */
 .nav-link {
   @apply text-gray-300;
