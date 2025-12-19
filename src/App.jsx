@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { useNotificationReminder } from './hooks/useNotificationReminder';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AboutPage from './components/AboutPage';
 import './index.css';
 
 const STORAGE_KEY = 'todo-react-tasks';
@@ -41,6 +43,10 @@ function App() {
   const [sortBy, setSortBy] = useState('Newest'); // 'Newest', 'Oldest', 'A-Z'
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
+  const [showAbout, setShowAbout] = useState(false);
+
+  // Notification reminder hook
+  const { isEnabled: notificationsEnabled, isSupported: notificationSupported, toggleNotifications } = useNotificationReminder(tasks);
 
   // Save to localStorage whenever tasks change
   useEffect(() => {
@@ -122,14 +128,58 @@ function App() {
   return (
     <ThemeProvider>
       <div className="app-wrapper">
-        <Header />
+        <Header 
+          isNotificationEnabled={notificationsEnabled}
+          onToggleNotifications={toggleNotifications}
+          notificationSupported={notificationSupported}
+          onOpenAbout={() => setShowAbout(true)}
+        />
+        
+        {/* About Modal */}
+        {showAbout && <AboutPage onClose={() => setShowAbout(false)} />}
         
         {/* Main Container */}
         <div className="minimal-container">
           {/* Header Section with Sort/Filter */}
           <div className="flex flex-col items-center mb-6">
-            <h1 className="app-title mb-2">MY TO DO LIST</h1>
-            
+            {/* Styled To-Do List Heading */}
+            <div className="flex items-center gap-3 mb-2">
+              <h1 
+                className="text-3xl md:text-4xl font-bold"
+                style={{
+                  color: 'var(--heading-color)',
+                  fontFamily: '"Comfortaa", sans-serif',
+                  letterSpacing: '0.02em'
+                }}
+              >
+                To-Do List
+              </h1>
+              {/* Clipboard Icon */}
+              <div 
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+                  boxShadow: '0 4px 15px rgba(251, 191, 36, 0.3)'
+                }}
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#1e1e2e" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  <path d="M9 12h6"></path>
+                  <path d="M9 16h6"></path>
+                </svg>
+              </div>
+            </div>
             {/* Controls Bar */}
             <div className="flex gap-2 items-center justify-center w-full">
               {/* Category Filter */}

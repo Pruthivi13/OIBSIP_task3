@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Comfortaa:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&display=swap');
+
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&display=swap');
-
 :root {
-  --font-primary: "Google Sans Flex", "DM Sans", sans-serif;
-  --font-display: "Google Sans", "Google Sans Flex", sans-serif;
+  --font-primary: "Comfortaa", "DM Sans", sans-serif;
+  --font-display: "Comfortaa", "Google Sans", sans-serif;
+  --heading-color: #fbbf24; /* Yellow for dark mode (default) */
+}
+
+html.light-mode {
+  --heading-color: #d97706; /* Golden amber for light mode */
 }
 
 *, *::before, *::after, html, body, input, textarea, button, select {
@@ -761,6 +766,32 @@ html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb {
 }
 
 html:not(.light-mode) .task-list-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* About Modal Scrollbar */
+.about-modal::-webkit-scrollbar {
+  width: 4px;
+}
+
+.about-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.about-modal::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.about-modal::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+html:not(.light-mode) .about-modal::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+html:not(.light-mode) .about-modal::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 

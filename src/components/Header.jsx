@@ -1,45 +1,82 @@
 import { useTheme } from '../context/ThemeContext';
 
-function Header() {
+function Header({ isNotificationEnabled, onToggleNotifications, notificationSupported, onOpenAbout }) {
   const { isDark, toggleTheme } = useTheme();
 
   return (
     <header className="header-bg fixed top-0 left-0 right-0 py-3 px-4 md:px-6 z-10 transition-colors duration-300">
       {/* Mobile: Stack layout, Desktop: Row layout */}
       <div className="flex items-center justify-between">
-        {/* Left - Logo & App Name */}
-        <div className="flex items-center gap-3 md:gap-4">
-          <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl overflow-hidden flex items-center justify-center shadow-xl"
+        {/* Left - Logo Icon & App Name */}
+        <div className="flex items-center gap-2 md:gap-3">
+          {/* Logo Icon */}
+          <div 
+            className="w-10 h-10 md:w-12 md:h-12 rounded-xl overflow-hidden flex-shrink-0"
             style={{
-              boxShadow: '0 0 20px rgba(139, 92, 246, 0.4), 0 4px 15px rgba(0, 0, 0, 0.2)'
+              boxShadow: isDark 
+                ? '0 0 20px rgba(139, 92, 246, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3)' 
+                : '0 4px 15px rgba(0, 0, 0, 0.15)'
             }}
           >
             <img 
-              src="/taskmaster_logo.png" 
-              alt="TaskMaster Logo"
+              src="/taskmaster_icon.png" 
+              alt="TaskMaster"
               className="w-full h-full object-cover"
             />
           </div>
-          <h1 className="header-title text-xl md:text-2xl font-bold tracking-wide"
+          
+          {/* App Name - Styled Text */}
+          <h1 
+            className="text-xl md:text-2xl font-bold tracking-wide lowercase"
             style={{
-              textShadow: '0 2px 10px rgba(16, 185, 129, 0.3)'
+              background: isDark 
+                ? 'linear-gradient(135deg, #c4b5fd, #a78bfa, #8b5cf6)' 
+                : 'linear-gradient(135deg, #7c3aed, #8b5cf6, #6d28d9)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              color: 'transparent',
+              fontFamily: '"Comfortaa", sans-serif',
+              letterSpacing: '0.05em'
             }}
           >
-            TaskMaster
+            task master
           </h1>
         </div>
 
         {/* Right - Nav items */}
         <div className="flex items-center gap-2 md:gap-3">
-          {/* About Link - Hidden on very small screens */}
-          <a
-            href="https://github.com/Pruthivi13"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link text-xs md:text-sm font-semibold transition-all hover:scale-105 hidden sm:block"
+          {/* About Button */}
+          <button
+            onClick={onOpenAbout}
+            className="nav-link text-xs md:text-sm font-semibold transition-all hover:scale-105 hidden sm:block bg-transparent border-none cursor-pointer"
           >
             About
-          </a>
+          </button>
+
+          {/* Notification Toggle Button */}
+          {notificationSupported && (
+            <button
+              onClick={onToggleNotifications}
+              className="notification-btn w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+              style={{
+                background: isNotificationEnabled
+                  ? 'linear-gradient(135deg, #10b981, #059669)'
+                  : isDark
+                    ? 'linear-gradient(135deg, #374151, #1f2937)'
+                    : 'linear-gradient(135deg, #e5e7eb, #d1d5db)',
+                boxShadow: isNotificationEnabled
+                  ? '0 0 15px rgba(16, 185, 129, 0.4)'
+                  : '0 2px 8px rgba(0, 0, 0, 0.15)'
+              }}
+              aria-label={isNotificationEnabled ? 'Disable notifications' : 'Enable notifications'}
+              title={isNotificationEnabled ? 'Notifications ON - Click to disable' : 'Notifications OFF - Click to enable'}
+            >
+              <span className="text-base md:text-lg">
+                {isNotificationEnabled ? '🔔' : '🔕'}
+              </span>
+            </button>
+          )}
 
           {/* Modern Theme Toggle Switch */}
           <button
@@ -82,3 +119,4 @@ function Header() {
 }
 
 export default Header;
+
