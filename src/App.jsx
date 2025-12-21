@@ -282,7 +282,7 @@ function App() {
                     // View Mode
                     <>
                       <div className="flex flex-col flex-1 gap-1 min-w-0" onClick={() => toggleComplete(task.id)}>
-                        <span className="task-text truncate">{task.title}</span>
+                        <span className="task-text">{task.title}</span>
                         <span className={`category-tag ${task.category.toLowerCase()}`}>
                           {CATEGORY_ICONS[task.category]} {task.category}
                         </span>
