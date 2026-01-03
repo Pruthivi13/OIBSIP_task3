@@ -26,8 +26,8 @@ export function useNotificationReminder(tasks) {
     return tasks.filter(task => !task.completed);
   }, [tasks]);
 
-  // Show notification
-  const showNotification = useCallback(() => {
+  // Show notification using Service Worker (better mobile support)
+  const showNotification = useCallback(async () => {
     const incompleteTasks = getIncompleteTasks();
     
     if (incompleteTasks.length === 0) return;
@@ -40,12 +40,28 @@ export function useNotificationReminder(tasks) {
     
     const moreText = count > 3 ? `\n...and ${count - 3} more` : '';
 
-    new Notification('TaskMaster Reminder 📝', {
+    const notificationOptions = {
       body: `You have ${count} pending task${count > 1 ? 's' : ''}!\n\n${taskTitles}${moreText}`,
-      icon: '/taskmaster_logo.png',
-      tag: 'taskmaster-reminder', // Prevents duplicate notifications
-      requireInteraction: false
-    });
+      icon: '/taskmaster_icon.png',
+      badge: '/taskmaster_icon.png',
+      tag: 'taskmaster-reminder',
+      requireInteraction: false,
+      vibrate: [100, 50, 100]
+    };
+
+    // Try to use Service Worker for better mobile support
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      try {
+        const registration = await navigator.serviceWorker.ready;
+        await registration.showNotification('TaskMaster Reminder 📝', notificationOptions);
+        return;
+      } catch (error) {
+        console.log('SW notification failed, falling back:', error);
+      }
+    }
+
+    // Fallback to regular Notification API
+    new Notification('TaskMaster Reminder 📝', notificationOptions);
   }, [getIncompleteTasks]);
 
   // Request notification permission
@@ -81,14 +97,28 @@ export function useNotificationReminder(tasks) {
         setIsEnabled(true);
         localStorage.setItem(NOTIFICATION_STORAGE_KEY, 'true');
         
-        // Show a test notification immediately
+        // Show a test notification immediately using Service Worker if available
         const incompleteTasks = getIncompleteTasks();
         if (incompleteTasks.length > 0) {
-          new Notification('Notifications Enabled! 🔔', {
+          const testOptions = {
             body: `You'll be reminded about your ${incompleteTasks.length} pending task${incompleteTasks.length > 1 ? 's' : ''} every 2 hours.`,
-            icon: '/taskmaster_logo.png',
-            tag: 'taskmaster-enabled'
-          });
+            icon: '/taskmaster_icon.png',
+            badge: '/taskmaster_icon.png',
+            tag: 'taskmaster-enabled',
+            vibrate: [100, 50, 100]
+          };
+
+          // Try Service Worker first
+          if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            try {
+              const registration = await navigator.serviceWorker.ready;
+              await registration.showNotification('Notifications Enabled! 🔔', testOptions);
+            } catch {
+              new Notification('Notifications Enabled! 🔔', testOptions);
+            }
+          } else {
+            new Notification('Notifications Enabled! 🔔', testOptions);
+          }
         }
       } else if (currentPermission === 'denied') {
         alert('Notification permission was denied. Please enable it in your browser settings.');

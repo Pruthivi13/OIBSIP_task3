@@ -948,3 +948,184 @@ html:not(.light-mode) .about-modal::-webkit-scrollbar-thumb:hover {
   }
 }
 
+/* ============================================
+   MOBILE HAMBURGER MENU STYLES
+   ============================================ */
+
+/* Hide regular footer on mobile */
+@media (max-width: 767px) {
+  .footer-bg {
+    display: none;
+  }
+  
+  .app-wrapper {
+    padding-bottom: 20px;
+  }
+}
+
+/* Hamburger Button */
+.mobile-menu-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-btn:hover {
+  color: #fff;
+  transform: scale(1.05);
+}
+
+html.light-mode .mobile-menu-btn {
+  color: #333;
+}
+
+html.light-mode .mobile-menu-btn:hover {
+  color: #000;
+}
+
+/* Drawer Backdrop */
+.mobile-drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 30;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Slide-out Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  max-width: 80vw;
+  height: 100%;
+  background: #1e1e2e;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+html.light-mode .mobile-drawer {
+  background: #ffffff;
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Drawer Header */
+.mobile-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html.light-mode .mobile-drawer-header {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-drawer-close {
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mobile-drawer-close:hover {
+  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+html.light-mode .mobile-drawer-close {
+  color: #666;
+}
+
+html.light-mode .mobile-drawer-close:hover {
+  color: #333;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Drawer Navigation */
+.mobile-drawer-nav {
+  flex: 1;
+  padding: 1rem 0;
+  overflow-y: auto;
+}
+
+.mobile-drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: transparent;
+  border: none;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.mobile-drawer-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html.light-mode .mobile-drawer-item {
+  color: #333;
+}
+
+html.light-mode .mobile-drawer-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mobile-drawer-icon {
+  font-size: 1.25rem;
+  width: 28px;
+  text-align: center;
+}
+
+/* Contact Highlight */
+.mobile-drawer-item.contact-highlight {
+  color: #10b981;
+}
+
+.mobile-drawer-item.contact-highlight:hover {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+/* Drawer Footer */
+.mobile-drawer-footer {
+  padding: 1.5rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+html.light-mode .mobile-drawer-footer {
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-drawer-footer .social-icon {
+  transition: all 0.2s ease;
+}
+
+.mobile-drawer-footer .social-icon:hover {
+  transform: scale(1.15);
+}
